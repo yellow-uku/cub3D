@@ -55,4 +55,5 @@ void	print_map(t_cub *cub)
 				change_pixel(&cub->core_img, x * SCALE, y * SCALE, 0x0000FF);
 		}
 	}
+	ft_strfree(cub->map);
 }

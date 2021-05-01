@@ -7,13 +7,13 @@
 void select_direction(double *angle, char direct)
 {
 	if (direct == 'N')
-		*angle = M_PI / 2;
-	else if (direct == 'S')
 		*angle = 3 * M_PI / 2;
+	else if (direct == 'S')
+		*angle = M_PI / 2;
 	else if (direct == 'W')
-		*angle = M_PI;
-	else if (direct == 'E')
 		*angle = 0;
+	else if (direct == 'E')
+		*angle = M_PI;
 }
 
 void check_player(t_player *player, char *line, int y)

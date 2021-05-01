@@ -11,32 +11,42 @@ void	init_mlx(t_cub *cub)
 
 void	ft_forward(t_cub *cub)
 {
-	cub->player.origin_x = cub->player.origin_x - cos(cub->player.angle);
-	cub->player.origin_y = cub->player.origin_y + sin(cub->player.angle);
+	cub->player.origin_x += cub->player.ray_x;
+	cub->player.origin_y += cub->player.ray_y;
 }
 
 void ft_back(t_cub *cub)
 {
-	cub->player.origin_x = cub->player.origin_x + cos(cub->player.angle);
-	cub->player.origin_y = cub->player.origin_y - sin(cub->player.angle);
+	cub->player.origin_x -= cub->player.ray_x;
+	cub->player.origin_y -= cub->player.ray_y;
 }
+
+// поворот луча на 90, нормировка + прибавление его координат к точке origin
 
 void ft_left(t_cub *cub)
 {
-	cub->player.origin_x = cub->player.origin_x + sin(cub->player.angle);
-	cub->player.origin_y = cub->player.origin_y - cos(cub->player.angle);
+	cub->player.origin_x -= cub->player.ray_x;
+	cub->player.origin_y += cub->player.ray_y;
 }
 
 void ft_right(t_cub *cub)
 {
-	cub->player.origin_x = cub->player.origin_x - sin(cub->player.angle);
-	cub->player.origin_y = cub->player.origin_y + cos(cub->player.angle);
+	cub->player.origin_x += cub->player.ray_x;
+	cub->player.origin_y -= cub->player.ray_y;
+}
+
+void ft_rotate(t_cub *cub, int k)
+{
+	cub->player.angle -= 0.1 * k;
 }
 
 int	motions(int keycode, t_cub *cub)
 {
 	if (keycode == ESC)
+	{
 		mlx_destroy_window(cub->mlx, cub->win);
+		exit(43);
+	}
 	else if (keycode == W)
 		ft_forward(cub);
 	else if (keycode == S)
@@ -45,6 +55,11 @@ int	motions(int keycode, t_cub *cub)
 		ft_left(cub);
 	else if (keycode == D)
 		ft_right(cub);
+	else if (keycode == ROTATE_LEFT)
+		ft_rotate(cub, 1);
+	else if (keycode == ROTATE_RIGHT)
+		ft_rotate(cub, -1);
+
 }
 
 void background(t_cub *cub)
@@ -57,7 +72,7 @@ void background(t_cub *cub)
 	{
 		x = 0;
 		while (x < cub->width)
-			my_mlx_pixel_put(&cub->core_img, x++, y, 0xFFFFFF);
+			my_mlx_pixel_put(&cub->core_img, x++, y, 0x858585);
 		y++;
 	}
 }
@@ -75,6 +90,7 @@ int	main(int argc, char **argv)
 
 	cub.height = 720;
 	cub.width = 1280;
+
 
 	init_mlx(&cub);
 	parse_map(&cub, argv[1]);

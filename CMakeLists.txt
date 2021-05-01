@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(cub_3d C)
 
 set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -framework OpenGL -O0 -framework AppKit -L../mlx -lmlx")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -framework OpenGL -O3 -framework AppKit -L../mlx -lmlx")
 include_directories(mlx)
 
 include_directories(.)

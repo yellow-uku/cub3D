@@ -41,16 +41,17 @@ typedef struct s_player
 	double	player_y;
 	double	origin_x;
 	double	origin_y;
-	double 	angle;
-
+	double	angle;
+	double	ray_x;
+	double	ray_y;
 }	t_player;
 
 typedef struct s_cub
 {
     void    *mlx;
     void    *win;
-    int     width;
-    int     height;
+    double    width;
+    double     height;
     char	**map;
     t_image core_img;
     t_player player;
